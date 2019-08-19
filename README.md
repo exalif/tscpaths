@@ -1,4 +1,10 @@
-# tscpaths
+# @exalif/tscpaths
+
+## Forked from tscpaths
+Forked from: https://github.com/joonhocho/tscpaths
+
+## Original Readme
+
 Replace absolute paths to relative paths after typescript compilation (tsc) during compile-time.
 
 [![npm version](https://badge.fury.io/js/tscpaths.svg)](https://badge.fury.io/js/tscpaths)
@@ -25,11 +31,12 @@ yarn add -D tscpaths
 ```
 
 ### Options
-| flag         | description                                        |
-| ------------ | -------------------------------------------------- |
-| -p --project | project configuration file (tsconfig.json)         |
-| -s --src     | source code root directory                         |
-| -o --out     | output directory of transpiled code (tsc --outDir) |
+| flag            | description                                        |
+| --------------- | -------------------------------------------------- |
+| -p --project    | project configuration file (tsconfig.json)         |
+| -s --src        | source code root directory                         |
+| -o --out        | output directory of transpiled code (tsc --outDir) |
+| -rs --removesrc | remove src from resulting relative path            |
 
 You need to provide -s (--src) and -o (--out), because it's hard to predict source and output paths based on tsconfig.json.
 

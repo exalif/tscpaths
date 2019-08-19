@@ -1,13 +1,5 @@
 import { dirname, resolve } from 'path';
 
-/*
-"baseUrl": ".",
-"outDir": "lib",
-"paths": {
-  "src/*": ["src/*"]
-},
-*/
-
 export interface IRawTSConfig {
   extends?: string;
   compilerOptions?: {

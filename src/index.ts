@@ -8,10 +8,11 @@ import { dirname, relative, resolve } from 'path';
 import { loadConfig } from './util';
 
 program
-  .version('0.0.1')
+  .version('0.1.0')
   .option('-p, --project <file>', 'path to tsconfig.json')
   .option('-s, --src <path>', 'source root path')
   .option('-o, --out <path>', 'output root path')
+  .option('-rs, --removesrc', 'remove src from relative path')
   .option('-v, --verbose', 'output logs');
 
 program.on('--help', () => {
@@ -22,11 +23,12 @@ program.on('--help', () => {
 
 program.parse(process.argv);
 
-const { project, src, out, verbose } = program as {
+const { project, src, out, verbose, removesrc } = program as {
   project?: string;
   src?: string;
   out?: string;
   verbose?: boolean;
+  removesrc?: boolean;
 };
 
 if (!project) {
@@ -116,7 +118,10 @@ const absToRel = (modulePath: string, outFile: string): string => {
           existsSync(moduleSrc) ||
           exts.some((ext) => existsSync(moduleSrc + ext))
         ) {
-          const rel = toRelative(dirname(srcFile), moduleSrc);
+          let rel = toRelative(dirname(srcFile), moduleSrc);
+          if (removesrc) {
+            rel = rel.replace('../src/', '');
+          }
           replaceCount += 1;
           verboseLog(
             `\treplacing '${modulePath}' -> '${rel}' referencing ${relative(
