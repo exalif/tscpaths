@@ -12,7 +12,7 @@ program
   .option('-p, --project <file>', 'path to tsconfig.json')
   .option('-s, --src <path>', 'source root path')
   .option('-o, --out <path>', 'output root path')
-  .option('-rs, --removesrc', 'remove src from relative path')
+  .option('-r, --removesrc', 'remove src from relative path')
   .option('-v, --verbose', 'output logs');
 
 program.on('--help', () => {
@@ -121,7 +121,7 @@ const absToRel = (modulePath: string, outFile: string): string => {
           let rel = toRelative(dirname(srcFile), moduleSrc);
           if (removesrc) {
             rel = rel.replace('../src/', '');
-            
+
             // restore relative path for root files
             if (!rel.startsWith('../') || !rel.startsWith('./')) {
               rel = './' + rel;
