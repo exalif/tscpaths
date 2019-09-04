@@ -121,6 +121,11 @@ const absToRel = (modulePath: string, outFile: string): string => {
           let rel = toRelative(dirname(srcFile), moduleSrc);
           if (removesrc) {
             rel = rel.replace('../src/', '');
+            
+            // restore relative path for root files
+            if (!rel.startsWith('../') || !rel.startsWith('./')) {
+              rel = './' + rel;
+            }
           }
           replaceCount += 1;
           verboseLog(
